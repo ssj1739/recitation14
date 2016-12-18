@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
 #define size 100000000
 int array[size];
 int numThreads = 1;
