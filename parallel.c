@@ -4,7 +4,7 @@
 
 #define size 100000000
 int array[size];
-int numThreads = 2;
+int numThreads = 8;
 long sum = 0;
 pthread_mutex_t t;
 
@@ -13,12 +13,13 @@ void computeSum(void * arg)
 	int start = (int *)arg;
 	int i;
 	int division = size / numThreads;
+	int localSum = 0;
 	for(i = start * division ; i < (start * division) + division ; i++){
-		pthread_mutex_lock(&t);
-		sum += array[i];
-		pthread_mutex_unlock(&t);
+		localSum += array[i];
 	}
-}
+	pthread_mutex_lock(&t);
+	sum+=localSum;
+	pthread_mutex_unlock(&t);}
 
 int main()
 {
